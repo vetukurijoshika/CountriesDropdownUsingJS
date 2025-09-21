@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Using Array</title>
+    <style>
+  #list {
+    list-style-type: none;   /* remove bullets */
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    position: absolute;  
+    top:150px;
+    z-index: 1000;     /* make it float under input */
+  }
+
+  #list li {
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  #list li:hover {
+    background: #f0f0f0;   /* highlight on hover */
+  }
+
+  .form-box {
+    position: relative;   /* so #list positions under input */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #input-text {
+    width: 250px;
+    padding: 10px;
+    font-size: 16px;
+  }
+</style>
+
+    
+    <script>
+        var countryArr = [
+  "Afghanistan",
+  "Albania",
+  "Algeria",
+  "Andorra",
+  "Angola",
+  "Antigua and Barbuda",
+  "Argentina",
+  "Armenia",
+  "Australia",
+  "Austria",
+  "Austrian Empire*",
+  "Azerbaijan",
+  "Baden*",
+  "Bahamas, The",
+  "Bahrain",
+  "Bangladesh",
+  "Barbados",
+  "Bavaria*",
+  "Belarus",
+  "Belgium",
+  "Belize",
+  "Benin (Dahomey)",
+  "Bolivia",
+  "Bosnia and Herzegovina",
+  "Botswana",
+  "Brazil",
+  "Brunei",
+  "Brunswick and Lüneburg*",
+  "Bulgaria",
+  "Burkina Faso (Upper Volta)",
+  "Burma",
+  "Burundi",
+  "Cabo Verde",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Cayman Islands, The",
+  "Central African Republic",
+  "Central American Federation*",
+  "Chad",
+  "Chile",
+  "China",
+  "Colombia",
+  "Comoros",
+  "Congo Free State, The*",
+  "Cook Islands",
+  "Costa Rica",
+  "Cote d’Ivoire (Ivory Coast)",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czechia",
+  "Czechoslovakia*",
+  "Democratic Republic of the Congo",
+  "Denmark",
+  "Djibouti",
+  "Dominica",
+  "Dominican Republic",
+  "Duchy of Parma, The*",
+  "East Germany (German Democratic Republic)*",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Estonia",
+  "Eswatini",
+  "Ethiopia",
+  "Federal Government of Germany (1848-49)*",
+  "Fiji",
+  "Finland",
+  "France",
+  "Gabon",
+  "Gambia, The",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Grand Duchy of Tuscany, The*",
+  "Greece",
+  "Grenada",
+  "Guatemala",
+  "Guinea",
+  "Guinea-Bissau",
+  "Guyana",
+  "Haiti",
+  "Hanover*",
+  "Hanseatic Republics*",
+  "Hawaii*",
+  "Hesse*",
+  "Holy See",
+  "Honduras",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Jamaica",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kenya",
+  "Kingdom of Serbia/Yugoslavia*",
+  "Kiribati",
+  "Korea",
+  "Kosovo",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Laos",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Lew Chew (Loochoo)*",
+  "Liberia",
+  "Libya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Mauritania",
+  "Mauritius",
+  "Mecklenburg-Schwerin*",
+  "Mecklenburg-Strelitz*",
+  "Mexico",
+  "Micronesia",
+  "Moldova",
+  "Monaco",
+  "Mongolia",
+  "Montenegro",
+  "Morocco",
+  "Mozambique",
+  "Namibia",
+  "Nassau*",
+  "Nauru",
+  "Nepal",
+  "Netherlands, The",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "Niue",
+  "North German Confederation*",
+  "North German Union*",
+  "North Macedonia",
+  "Norway",
+  "Oldenburg*",
+  "Oman",
+  "Orange Free State*",
+  "Pakistan",
+  "Palau",
+  "Panama",
+  "Papal States*",
+  "Papua New Guinea",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Piedmont-Sardinia*",
+  "Poland",
+  "Portugal",
+  "Qatar",
+  "Republic of Genoa*",
+  "Republic of Korea (South Korea)",
+  "Republic of the Congo",
+  "Romania",
+  "Russia",
+  "Rwanda",
+  "Saint Kitts and Nevis",
+  "Saint Lucia",
+  "Saint Vincent and the Grenadines",
+  "Samoa",
+  "San Marino",
+  "Sao Tome and Principe",
+  "Saudi Arabia",
+  "Schaumburg-Lippe*",
+  "Senegal",
+  "Serbia",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Solomon Islands, The",
+  "Somalia",
+  "South Africa",
+  "South Sudan",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Suriname",
+  "Sweden",
+  "Switzerland",
+  "Syria",
+  "Tajikistan",
+  "Tanzania",
+  "Texas*",
+  "Thailand",
+  "Timor-Leste",
+  "Togo",
+  "Tonga",
+  "Trinidad and Tobago",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Tuvalu",
+  "Two Sicilies*",
+  "Uganda",
+  "Ukraine",
+  "Union of Soviet Socialist Republics*",
+  "United Arab Emirates, The",
+  "United Kingdom, The",
+  "Uruguay",
+  "Uzbekistan",
+  "Vanuatu",
+  "Venezuela",
+  "Vietnam",
+  "Württemberg*",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe"
+];
+    </script>
+</head>
+<body>
+    <form class="form-box">
+        <label for="input-text">Country Name</label>
+        <input type="text" id="input-text">
+        <button type="button" id="button-box" onclick="func()">Filter</button>
+        <ul id="list"></ul>
+
+    </form>
+    <script>
+        function func(){
+            var inputText=document.getElementById("input-text").value;
+            var parent=document.getElementById("list");
+            parent.innerHTML="<li>Select a Country</li>";
+            let found=false;
+            for(i=0;i<countryArr.length;i++){
+                var name=countryArr[i];
+                if(name.toLowerCase().startsWith(inputText.toLowerCase())){
+                    var obj=document.createElement("li");
+                    obj.innerText=name;
+                    parent.appendChild(obj);
+                    found=true;
+                }
+            }
+            if(!found && inputText!==""){
+                parent.innerHTML="<li>Match Not Found</li>";
+
+            }
+
+        }
+        
+        
+  
+
+    </script>
+    
+</body>
+</html>

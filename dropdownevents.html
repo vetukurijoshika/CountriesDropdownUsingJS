@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Using Events</title>
+  <script>
+    var countryArr = [
+      "Afghanistan","Albania","Algeria","Andorra","Angola","Argentina",
+      "Australia","Austria","Bangladesh","Belgium","Bhutan","Brazil",
+      "Canada","China","Denmark","Egypt","Finland","France","Germany",
+      "Greece","Hungary","Iceland","India","Indonesia","Iran","Iraq",
+      "Ireland","Israel","Italy","Japan","Kenya","Malaysia","Mexico",
+      "Nepal","Netherlands","New Zealand","Nigeria","Norway","Pakistan",
+      "Poland","Portugal","Qatar","Romania","Russia","Saudi Arabia",
+      "Singapore","South Africa","South Korea","Spain","Sri Lanka",
+      "Sweden","Switzerland","Thailand","Turkey","Ukraine",
+      "United Arab Emirates","United Kingdom","United States","Vietnam","Zimbabwe"
+    ];
+  </script>
+  <style>
+    li{
+        list-style: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Country Dropdown</h2>
+  <form>
+    <input type="text" id="input-text">
+    <ul id="dropdown"></ul>
+  </form>
+
+  <script>
+    function func() {
+      var inputText = document.getElementById("input-text").value;
+      var parent = document.getElementById("dropdown");
+      parent.innerHTML = "";
+      var found = false;
+
+      for (var i = 0; i < countryArr.length; i++) {
+        var name = countryArr[i];
+        if (name.toLowerCase().startsWith(inputText.toLowerCase()) && inputText !== "") {
+          var obj = document.createElement("li");
+          obj.innerText = name;
+          obj.addEventListener("click",function(){
+            document.getElementById("input-text").value= this.innerText;
+            parent.innerHTML="";
+
+          });
+          parent.appendChild(obj);
+          found = true;
+        }
+      }
+
+      if (!found && inputText !== "") {
+        parent.innerHTML = "<li>No Match Found</li>";
+      }
+    }  
+    var inputt= document.getElementById("input-text");
+    inputt.addEventListener("input",func);
+    
+  </script>
+</body>
+</html>
